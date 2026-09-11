@@ -1,5 +1,7 @@
 # Docker Todo API
 
+![CI](https://github.com/yuvalv77/docker-todo-api/actions/workflows/ci.yml/badge.svg)
+
 A small Todo list REST API built to demonstrate containerizing a multi-service app with Docker and Docker Compose.
 
 ## Architecture

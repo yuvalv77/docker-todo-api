@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Build and start containers
+        run: docker compose up --build -d
+
+      - name: Wait for API to become healthy
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000/health > /dev/null; then
+              echo "API is up"
+              exit 0
+            fi
+            echo "Waiting for API... ($i/30)"
+            sleep 2
+          done
+          echo "API never became healthy"
+          docker compose logs
+          exit 1
+
+      - name: Smoke test - create and list a todo
+        run: |
+          curl -sf -X POST http://localhost:3000/todos \
+            -H "Content-Type: application/json" \
+            -d '{"title":"CI smoke test"}' | tee /tmp/created.json
+
+          curl -sf http://localhost:3000/todos | grep -q "CI smoke test"
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
