@@ -1,0 +1,13 @@
+{
+  "name": "docker-todo-api",
+  "version": "1.0.0",
+  "description": "Todo list API demonstrating Docker + Docker Compose with a Node.js API and PostgreSQL database",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  }
+}
