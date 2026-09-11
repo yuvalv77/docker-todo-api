@@ -54,3 +54,7 @@ curl http://localhost:3000/todos
 docker compose down       # stop containers, keep data
 docker compose down -v    # stop containers and delete data volume
 ```
+
+## Also deployable to Kubernetes
+
+This same app is also deployed via Kubernetes manifests (2 API replicas, self-healing, persistent storage) — see [`k8s/`](./k8s) for the full setup and image published to [Docker Hub](https://hub.docker.com/r/yuvalnet/docker-todo-api).
