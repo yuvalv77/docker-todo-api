@@ -36,6 +36,7 @@ The API is then available at `http://localhost:3000`.
 | Method | Path         | Description          |
 |--------|--------------|-----------------------|
 | GET    | `/health`    | Health check          |
+| GET    | `/metrics`   | Prometheus metrics    |
 | GET    | `/todos`     | List all todos        |
 | POST   | `/todos`     | Create a todo `{ "title": "..." }` |
 | PATCH  | `/todos/:id` | Toggle a todo's `done` state |
@@ -58,3 +59,7 @@ docker compose down -v    # stop containers and delete data volume
 ## Also deployable to Kubernetes
 
 This same app is also deployed via Kubernetes manifests (2 API replicas, self-healing, persistent storage) — see [`k8s/`](./k8s) for the full setup and image published to [Docker Hub](https://hub.docker.com/r/yuvalnet/docker-todo-api).
+
+## Monitoring
+
+Prometheus + Grafana are wired up alongside the API — see [`monitoring/`](./monitoring) for a live dashboard covering request rate, latency, and error rate.
